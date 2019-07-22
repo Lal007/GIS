@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class AccountsService {
 
@@ -6,7 +7,7 @@ public class AccountsService {
 
     public AccountsService(DBService dbService) {
         this.dbService = dbService;
-        //dbService.connect();
+        dbService.connect();
     }
 
 
@@ -16,10 +17,7 @@ public class AccountsService {
         StringBuilder sb = new StringBuilder();
 
         if (user != null){
-            for (String s:user) {
-                sb.append(s).append(" ");
-            }
-            return sb.toString().trim();
+            return user.stream().collect(Collectors.joining(" "));
         }else return "";
 
     }
