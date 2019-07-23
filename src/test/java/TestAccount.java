@@ -11,18 +11,26 @@ public class TestAccount {
     DBService dbService = mock(DBService.class);
 
     @Test
-    public void testChangeSurname(){
+    public void testChangeSurnameCorrect(){
 
         AccountsService ac = new AccountsService(dbService);
-        when(dbService.changeField(anyString(), anyString())).thenReturn(0).thenReturn(1);
+        when(dbService.changeField(anyString(), anyString())).thenReturn(1);
+
+        boolean test1 = ac.changeSurname("user1", "Aleksandrov");
+        assertTrue(test1);
+
+        verify(dbService).changeField("user1", "Aleksandrov");
+    }
+
+    @Test
+    public  void testChangeSurnameIncorrect(){
+        AccountsService ac = new AccountsService(dbService);
+        when(dbService.changeField(anyString(), anyString())).thenReturn(0);
 
         boolean test1 = ac.changeSurname("user1", "Aleksandrov");
         assertFalse(test1);
 
-        boolean test2 = ac.changeSurname("user1", "Aleksandrov");
-        assertTrue(test2);
-
-        verify(dbService, times(2)).changeField("user1", "Aleksandrov");
+        verify(dbService).changeField("user1", "Aleksandrov");
     }
 
     @Test
