@@ -47,4 +47,15 @@ public class TestAccount {
         verify(dbService).connect();
     }
 
+    @Test
+    public void expectedValue(){
+        AccountsService ac = new AccountsService(dbService);
+
+        ArrayList<String> correct = new ArrayList<String>(Arrays.asList("1", "user1", "Ivan", "Petrov", "moderator"));
+        when(dbService.getAccount("user1")).thenReturn(correct);
+
+        String testString = ac.searchInRepository("user1");
+        assertEquals("1 user1 Ivan Petrov moderator", testString);
+    }
+
 }
