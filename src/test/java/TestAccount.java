@@ -22,7 +22,7 @@ public class TestAccount {
         boolean test2 = ac.changeSurname("user1", "Aleksandrov");
         assertTrue(test2);
 
-        verify(dbService, times(2)).changeField(anyString(), anyString());
+        verify(dbService, times(2)).changeField("user1", "Aleksandrov");
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TestAccount {
         String test2 = ac.searchInRepository("admin1");
         assertEquals("2 admin1 Andrei Sidorov administrator", test2);
 
-        verify(dbService, times(2)).getAccount(anyString());
+        verify(dbService, times(2)).getAccount("admin1");
     }
 
     @Test
