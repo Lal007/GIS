@@ -56,6 +56,8 @@ public class TestAccount {
 
         String testString = ac.searchInRepository("user1");
         assertEquals("1 user1 Ivan Petrov moderator", testString);
+
+        verify(dbService).getAccount("user1");
     }
 
 }
