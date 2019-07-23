@@ -21,6 +21,8 @@ public class TestAccount {
 
         boolean test2 = ac.changeSurname("3", "4");
         assertTrue(test2);
+
+        verify(dbService, times(2)).changeField(anyString(), anyString());
     }
 
     @Test
@@ -35,6 +37,14 @@ public class TestAccount {
 
         String test2 = ac.searchInRepository("2");
         assertEquals("1 2 3 4", test2);
+
+        verify(dbService, times(2)).getAccount(anyString());
+    }
+
+    @Test
+    public void testConnectVerify(){
+        AccountsService ac = new AccountsService(dbService);
+        verify(dbService).connect();
     }
 
 }
