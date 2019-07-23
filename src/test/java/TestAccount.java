@@ -34,19 +34,27 @@ public class TestAccount {
     }
 
     @Test
-    public void testSearch(){
+    public void testSearchCorrect(){
 
         AccountsService ac = new AccountsService(dbService);
         ArrayList<String> correct = new ArrayList<String>(Arrays.asList("2", "admin1", "Andrei", "Sidorov", "administrator"));
-        when(dbService.getAccount(anyString())).thenReturn(null).thenReturn(correct);
+        when(dbService.getAccount(anyString())).thenReturn(correct);
+
+        String test1 = ac.searchInRepository("admin1");
+        assertEquals("2 admin1 Andrei Sidorov administrator", test1);
+
+        verify(dbService).getAccount("admin1");
+    }
+
+    @Test
+    public void testSearchIncorrect(){
+        AccountsService ac = new AccountsService(dbService);
+        when(dbService.getAccount(anyString())).thenReturn(null);
 
         String test1 = ac.searchInRepository("admin1");
         assertEquals("", test1);
 
-        String test2 = ac.searchInRepository("admin1");
-        assertEquals("2 admin1 Andrei Sidorov administrator", test2);
-
-        verify(dbService, times(2)).getAccount("admin1");
+        verify(dbService).getAccount("admin1");
     }
 
     @Test
