@@ -3,7 +3,7 @@ public class Main {
         DBService dbService = new DBService();
         AccountsService ac = new AccountsService(dbService);
 
-        System.out.println(ac.searchInRepository("user1"));
+        System.out.println(ac.searchInRepository("admin1"));
         dbService.closeConnection();
     }
 }
