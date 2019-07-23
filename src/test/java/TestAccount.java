@@ -14,7 +14,7 @@ public class TestAccount {
     public void testChangeSurname(){
 
         AccountsService ac = new AccountsService(dbService);
-        when(dbService.changeField("user1", "Aleksandrov")).thenReturn(0).thenReturn(1);
+        when(dbService.changeField(anyString(), anyString())).thenReturn(0).thenReturn(1);
 
         boolean test1 = ac.changeSurname("user1", "Aleksandrov");
         assertFalse(test1);
@@ -30,7 +30,7 @@ public class TestAccount {
 
         AccountsService ac = new AccountsService(dbService);
         ArrayList<String> correct = new ArrayList<String>(Arrays.asList("2", "admin1", "Andrei", "Sidorov", "administrator"));
-        when(dbService.getAccount("admin1")).thenReturn(null).thenReturn(correct);
+        when(dbService.getAccount(anyString())).thenReturn(null).thenReturn(correct);
 
         String test1 = ac.searchInRepository("admin1");
         assertEquals("", test1);
